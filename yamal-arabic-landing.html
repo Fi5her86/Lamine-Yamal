@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>لامين يامال - نجم برشلونة الصاعد</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --barca-blue: #004D98;
+            --barca-red: #A50044;
+            --barca-yellow: #FFED00;
+            --barca-navy: #181733;
+            --gradient-start: #004D98;
+            --gradient-end: #A50044;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Arial', sans-serif;
+            background: linear-gradient(135deg, var(--barca-navy) 0%, var(--barca-blue) 100%);
+            color: white;
+            overflow-x: hidden;
+            direction: rtl;
+        }
+
+        /* Loading Animation */
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--barca-navy);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            animation: fadeOut 0.5s ease 2s forwards;
+        }
+
+        .loader-circle {
+            width: 80px;
+            height: 80px;
+            border: 4px solid transparent;
+            border-top-color: var(--barca-yellow);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+                visibility: hidden;
+            }
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(24, 23, 51, 0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 15px 20px;
+            animation: slideDown 0.5s ease;
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            background: linear-gradient(45deg, var(--barca-blue), var(--barca-red));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: pulse 2s ease infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 80px 20px 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(165, 0, 68, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(0, 77, 152, 0.3) 0%, transparent 50%);
+            animation: float 10s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            animation: fadeInUp 1s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-number {
+            font-size: 120px;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--barca-yellow), var(--barca-red));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            line-height: 1;
+            margin-bottom: 20px;
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        @keyframes glow {
+            0%, 100% { 
+                filter: drop-shadow(0 0 20px rgba(255, 237, 0, 0.5));
+            }
+            50% { 
+                filter: drop-shadow(0 0 40px rgba(255, 237, 0, 0.8));
+            }
+        }
+
+        .hero-name {
+            font-size: 48px;
+            font-weight: 800;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero-subtitle {
+            font-size: 20px;
+            color: var(--barca-yellow);
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+        }
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            min-width: 100px;
+            border: 1px solid rgba(255, 237, 0, 0.3);
+            animation: slideIn 0.5s ease backwards;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 30px rgba(255, 237, 0, 0.3);
+            border-color: var(--barca-yellow);
+        }
+
+        .stat-card:nth-child(1) { animation-delay: 0.1s; }
+        .stat-card:nth-child(2) { animation-delay: 0.2s; }
+        .stat-card:nth-child(3) { animation-delay: 0.3s; }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .stat-number {
+            font-size: 32px;
+            font-weight: bold;
+            color: var(--barca-yellow);
+            display: block;
+        }
+
+        .stat-label {
+            font-size: 14px;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            animation: fadeIn 1s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .section-title {
+            font-size: 36px;
+            font-weight: bold;
+            margin-bottom: 30px;
+            text-align: center;
+            background: linear-gradient(45deg, var(--barca-yellow), white);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            padding-bottom: 20px;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--barca-blue), var(--barca-red));
+            border-radius: 2px;
+        }
+
+        /* Cards */
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 237, 0, 0.1) 0%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .card:hover::before {
+            opacity: 1;
+        }
+
+        .card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 77, 152, 0.3);
+            border-color: var(--barca-yellow);
+        }
+
+        .card-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--barca-blue), var(--barca-red));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            margin-bottom: 15px;
+            animation: bounce 2s ease infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .card-title {
+            font-size: 22px;
+            font-weight: bold;
+            margin-bottom: 10px;
+            color: var(--barca-yellow);
+        }
+
+        .card-content {
+            font-size: 16px;
+            line-height: 1.6;
+            opacity: 0.9;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding: 40px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            right: 50%;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, var(--barca-blue), var(--barca-red));
+            animation: grow 2s ease;
+        }
+
+        @keyframes grow {
+            from { height: 0; }
+            to { height: 100%; }
+        }
+
+        .timeline-item {
+            position: relative;
+            padding: 20px;
+            margin: 30px 0;
+            animation: slideInTimeline 0.5s ease backwards;
+        }
+
+        .timeline-item:nth-child(odd) { animation-delay: 0.1s; }
+        .timeline-item:nth-child(even) { animation-delay: 0.2s; }
+
+        @keyframes slideInTimeline {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .timeline-dot {
+            position: absolute;
+            right: calc(50% - 10px);
+            width: 20px;
+            height: 20px;
+            background: var(--barca-yellow);
+            border-radius: 50%;
+            border: 3px solid var(--barca-navy);
+            animation: pulse 2s ease infinite;
+        }
+
+        .timeline-content {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 20px;
+            margin: 0 auto;
+            max-width: 45%;
+            border: 1px solid rgba(255, 237, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(255, 237, 0, 0.2);
+        }
+
+        .timeline-date {
+            color: var(--barca-yellow);
+            font-weight: bold;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+
+        /* Achievement Badges */
+        .achievements {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .badge {
+            background: linear-gradient(135deg, rgba(255, 237, 0, 0.2), rgba(165, 0, 68, 0.2));
+            border: 2px solid var(--barca-yellow);
+            border-radius: 50px;
+            padding: 12px 25px;
+            font-size: 14px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .badge::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 237, 0, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.3s ease, height 0.3s ease;
+        }
+
+        .badge:hover::before {
+            width: 100%;
+            height: 100%;
+        }
+
+        .badge:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 10px 20px rgba(255, 237, 0, 0.4);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--barca-navy);
+            padding: 40px 20px;
+            text-align: center;
+            border-top: 2px solid rgba(255, 237, 0, 0.2);
+        }
+
+        .footer-logo {
+            font-size: 32px;
+            font-weight: bold;
+            background: linear-gradient(45deg, var(--barca-blue), var(--barca-red));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 20px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .hero-number {
+                font-size: 80px;
+            }
+
+            .hero-name {
+                font-size: 32px;
+            }
+
+            .hero-subtitle {
+                font-size: 16px;
+            }
+
+            .section-title {
+                font-size: 28px;
+            }
+
+            .timeline::before {
+                right: 20px;
+            }
+
+            .timeline-content {
+                max-width: 85%;
+                margin-right: 50px;
+            }
+
+            .timeline-dot {
+                right: 10px;
+            }
+
+            .hero-stats {
+                gap: 15px;
+            }
+
+            .stat-card {
+                min-width: 80px;
+                padding: 15px;
+            }
+
+            .stat-number {
+                font-size: 24px;
+            }
+        }
+
+        /* Floating Animation */
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        @keyframes floating {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Sparkle Effect */
+        .sparkle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--barca-yellow);
+            border-radius: 50%;
+            animation: sparkle 3s linear infinite;
+        }
+
+        @keyframes sparkle {
+            0% {
+                opacity: 0;
+                transform: scale(0) rotate(0deg);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1) rotate(180deg);
+            }
+            100% {
+                opacity: 0;
+                transform: scale(0) rotate(360deg);
+            }
+        }
+
+        /* Smooth Scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--barca-navy);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--barca-blue), var(--barca-red));
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, var(--barca-red), var(--barca-blue));
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Animation -->
+    <div class="loader">
+        <div class="loader-circle"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-content">
+            <div class="logo">FC BARCELONA</div>
+            <div style="color: var(--barca-yellow); font-weight: bold;">LAMINE YAMAL</div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <div class="hero-number floating">19</div>
+            <h1 class="hero-name">لامين يامال</h1>
+            <p class="hero-subtitle">نجم برشلونة الصاعد • جناح أيمن</p>
+            
+            <div class="hero-stats">
+                <div class="stat-card">
+                    <span class="stat-number">17</span>
+                    <span class="stat-label">العمر</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">50+</span>
+                    <span class="stat-label">مباراة</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-number">15+</span>
+                    <span class="stat-label">هدف</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="section">
+        <h2 class="section-title">نبذة عن اللاعب</h2>
+        <div class="cards-container">
+            <div class="card">
+                <div class="card-icon">👶</div>
+                <h3 class="card-title">البداية المبكرة</h3>
+                <p class="card-content">وُلد في 13 يوليو 2007 في إسبلوجيس دي يوبريجات، انضم لأكاديمية لا ماسيا في سن السادسة وسرعان ما أثبت نفسه كأحد أعظم المواهب في تاريخ الأكاديمية.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">⚡</div>
+                <h3 class="card-title">الصعود السريع</h3>
+                <p class="card-content">ظهر لأول مرة مع الفريق الأول في أبريل 2023 وهو في سن 15 عاماً، ليصبح أصغر لاعب يلعب لبرشلونة في أكثر من قرن.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">🏆</div>
+                <h3 class="card-title">بطل أوروبا</h3>
+                <p class="card-content">قاد إسبانيا للفوز بيورو 2024، وحصل على جائزة أفضل لاعب شاب في البطولة، وسجل هدفاً تاريخياً في نصف النهائي ضد فرنسا.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section class="section">
+        <h2 class="section-title">المسيرة الاحترافية</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">2014</div>
+                    <p>الانضمام لأكاديمية لا ماسيا في سن السادسة</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">أبريل 2023</div>
+                    <p>الظهور الأول مع الفريق الأول ضد ريال بيتيس</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">أكتوبر 2023</div>
+                    <p>التوقيع على عقد احترافي مع بند فسخ بقيمة مليار يورو</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">يوليو 2024</div>
+                    <p>الفوز بيورو 2024 مع المنتخب الإسباني</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">أكتوبر 2024</div>
+                    <p>الفوز بجائزة كوبا كأفضل لاعب شاب في العالم</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <div class="timeline-date">2025</div>
+                    <p>ارتداء القميص رقم 10 الأسطوري والتوقيع حتى 2031</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Achievements Section -->
+    <section class="section">
+        <h2 class="section-title">الإنجازات والأرقام القياسية</h2>
+        <div class="achievements">
+            <div class="badge">🏆 بطل الليجا</div>
+            <div class="badge">🥇 بطل أوروبا 2024</div>
+            <div class="badge">⚡ أصغر لاعب في تاريخ برشلونة</div>
+            <div class="badge">🎯 أصغر هداف في الكلاسيكو</div>
+            <div class="badge">🌟 جائزة كوبا 2024</div>
+            <div class="badge">🔥 أفضل لاعب شاب في يورو 2024</div>
+            <div class="badge">💫 17 رقم قياسي محطم</div>
+            <div class="badge">🎖️ المركز الثامن في الكرة الذهبية</div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section class="section">
+        <h2 class="section-title">المهارات والقدرات</h2>
+        <div class="cards-container">
+            <div class="card">
+                <div class="card-icon">🎯</div>
+                <h3 class="card-title">المراوغة الاستثنائية</h3>
+                <p class="card-content">ثاني أكثر لاعب نجاحاً في المراوغة في الليجا بمعدل 4.5 مراوغة ناجحة في المباراة ونسبة نجاح 55%.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">👁️</div>
+                <h3 class="card-title">الرؤية التكتيكية</h3>
+                <p class="card-content">قدرة فائقة على قراءة اللعب وصناعة الفرص لزملائه، مع فهم عميق لتحركات الفريق.</p>
+            </div>
+            <div class="card">
+                <div class="card-icon">⚽</div>
+                <h3 class="card-title">التسديد من بعيد</h3>
+                <p class="card-content">يتميز بتسديدات قوية ودقيقة من خارج منطقة الجزاء، كما في هدفه الرائع ضد فرنسا.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-logo">FC BARCELONA</div>
+        <p style="opacity: 0.8; margin-top: 10px;">لامين يامال - مستقبل كرة القدم</p>
+        <p style="opacity: 0.6; margin-top: 20px; font-size: 14px;">© 2025 جميع الحقوق محفوظة</p>
+    </footer>
+
+    <script>
+        // Add sparkles dynamically
+        function createSparkle() {
+            const sparkle = document.createElement('div');
+            sparkle.className = 'sparkle';
+            sparkle.style.left = Math.random() * window.innerWidth + 'px';
+            sparkle.style.top = Math.random() * window.innerHeight + 'px';
+            sparkle.style.animationDelay = Math.random() * 3 + 's';
+            document.body.appendChild(sparkle);
+            
+            setTimeout(() => {
+                sparkle.remove();
+            }, 3000);
+        }
+
+        // Create sparkles periodically
+        setInterval(createSparkle, 500);
+
+        // Parallax effect on scroll
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const heroBg = document.querySelector('.hero-bg');
+            if (heroBg) {
+                heroBg.style.transform = `translateY(${scrolled * 0.5}px)`;
+            }
+        });
+
+        // Animate elements on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeInUp 0.6s ease forwards';
+                }
+            });
+        }, observerOptions);
+
+        // Observe all cards and timeline items
+        document.querySelectorAll('.card, .timeline-item').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Counter animation for stats
+        function animateCounter(element, target) {
+            let current = 0;
+            const increment = target / 50;
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= target) {
+                    element.textContent = target + '+';
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(current) + '+';
+                }
+            }, 30);
+        }
+
+        // Trigger counter animation when stats are visible
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const statNumbers = entry.target.querySelectorAll('.stat-number');
+                    statNumbers.forEach(stat => {
+                        const text = stat.textContent;
+                        if (text.includes('+')) {
+                            const number = parseInt(text);
+                            if (!isNaN(number)) {
+                                animateCounter(stat, number);
+                            }
+                        }
+                    });
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        const heroStats = document.querySelector('.hero-stats');
+        if (heroStats) {
+            statsObserver.observe(heroStats);
+        }
+
+        // Remove loader after page load
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const loader = document.querySelector('.loader');
+                if (loader) {
+                    loader.style.display = 'none';
+                }
+            }, 2500);
+        });
+    </script>
+</body>
+</html>
